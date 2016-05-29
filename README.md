@@ -1,3 +1,3 @@
 # django-blog
 
-### Project used for learning purposes
+### Project created for learning purposes
