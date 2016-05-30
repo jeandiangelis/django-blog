@@ -16,7 +16,7 @@ def post_create(request):
 
 def post_list(request):
 
-    return HttpResponse("")
+    return render(request, "posts/index.html", {})
 
 
 def post_update(request):
