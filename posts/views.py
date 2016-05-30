@@ -5,8 +5,8 @@ from .models import Post
 # Create your views here.
 
 
-def post_detail(request):
-    post = get_object_or_404(Post, id=1)
+def post_detail(request, id=None):
+    post = get_object_or_404(Post, id=id)
     context = {
         "title": "detail",
         "post": post
