@@ -5,6 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Template is working</h1>
+    <h1>{{ title }} is working</h1>
+    {% for post in query_set %}
+        {{ post.title }} <br />
+        {{ post.content }} <br />
+        {{ post.timestamp }}
+        <br />
+        <br />
+    {% endfor %}
 </body>
 </html>
