@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 from .forms import PostForm
@@ -17,9 +18,16 @@ def post_detail(request, id=None):
 
 
 def post_create(request):
-    form = PostForm()
-    if request.method == 'POST':
-        print request.POST.get('content')
+    form = PostForm(request.POST or None)
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.save()
+        messages.success(request, "Success!")
+
+        return HttpResponseRedirect(post.get_absolute_url())
+    else:
+        messages.error(request, "Something went wrong!")
+
     context = {
         "form": form,
     }
@@ -38,10 +46,22 @@ def post_list(request):
     return render(request, "posts/index.html", context)
 
 
-def post_update(request):
+def post_update(request, id=None):
+    post = get_object_or_404(Post, id=id)
+    form = PostForm(request.POST or None, instance=post)
 
-    return HttpResponse("")
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.save()
+        messages.success(request, "Success!")
+        return HttpResponseRedirect(post.get_absolute_url())
 
+    context = {
+        "post": post,
+        "form": form
+    }
+
+    return render(request, "posts/update.html", context)
 
 def post_delete(request):
 
