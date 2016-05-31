@@ -7,7 +7,7 @@
 <body>
     <h1>{{ title }} is working</h1>
     {% for post in query_set %}
-        {{ post.title }} <br />
+    <a href="{{ post.get_absolute_url }}">{{ post.title }} <br /></a>
         {{ post.content }} <br />
         {{ post.timestamp }}
         <br />
