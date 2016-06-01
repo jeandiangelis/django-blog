@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from .forms import PostForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -34,7 +35,18 @@ def post_create(request):
 
 
 def post_list(request):
-    query_set = Post.objects.all()
+    query_set_list = Post.objects.all().order_by("-timestamp")
+    paginator = Paginator(query_set_list, 3)
+
+    page = request.GET.get('page')
+    try:
+        query_set = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        query_set = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        query_set = paginator.page(paginator.num_pages)
 
     context = {
         "title": "list",
