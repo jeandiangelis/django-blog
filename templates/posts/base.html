@@ -18,13 +18,6 @@
 
     <div class="container">
         {% block content %}
-            {% for post in query_set %}
-            <a href="{{ post.get_absolute_url }}">{{ post.title }} <br /></a>
-                {{ post.content }} <br />
-                {{ post.timestamp }}
-                <br />
-                <br />
-            {% endfor %}
         {% endblock content %}
     </div>
 </body>

@@ -43,7 +43,7 @@ def post_list(request):
         "query_set": query_set
     }
 
-    return render(request, "posts/base.html", context)
+    return render(request, "posts/list.html", context)
 
 
 def post_update(request, id=None):
