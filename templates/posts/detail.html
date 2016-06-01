@@ -1,24 +1,13 @@
-<!--DOCTYPE html-->
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}
-        </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+{% extends "posts/base.html" %}
 
-    <h1>{{ title }} is working</h1>
-     {{ post.title }} <br />
+{% block content %}
+
+    <h1>
+        {{ title }} is working
+    </h1>
+
+    {{ post.title }} <br />
     {{ post.content }} <br />
     {{ post.timestamp }}
-    <br />
-    <br />
-</body>
-</html>
+
+{% endblock content %}
