@@ -1,15 +1,27 @@
 {% extends "posts/base.html" %}
 
 {% block content %}
-    <h1 id="teste">AA</h1>
-    {% for post in query_set %}
-        <a href="{{ post.get_absolute_url }}">
-            {{ post.title }} <br />
-        </a>
-        {{ post.content }}
-        <br />
-        {{ post.timestamp }}
-        <br />
-        <br />
-    {% endfor %}
+    <div class="row">
+        {% for post in query_set %}
+            <div class="col-sm-6 col-sm-offset-3">
+            <div class="thumbnail">
+              <!--<img src="..." alt="...">-->
+              <div class="caption">
+                <h3>
+                    <a href="{{ post.get_absolute_url }}">
+                            {{ post.title }} <br />
+                    </a>
+                    <small class="text-info">
+                        {{ post.timestamp|timesince }} ago
+                    </small>
+                </h3>
+                <p>{{ post.content|linebreaks|truncatechars:30 }}</p>
+                <p><a href="{{ post.get_absolute_url }}" class="btn btn-primary" role="button">View</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+
+
 {% endblock content %}

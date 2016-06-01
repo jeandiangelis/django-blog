@@ -5,13 +5,12 @@
 {% endblock head_title %}
 
 {% block content %}
-
-    <h1>
-        {{ title }} is working
-    </h1>
-
-    {{ post.title }} <br />
-    {{ post.content }} <br />
-    {{ post.timestamp }}
-
+    <div class="col-sm-6 col-sm-offset-3">
+        <h1>
+            {{ post.title }}
+        </h1>
+        <small>{{ post.timestamp }}</small>
+        <br />
+        {{ post.content }} <br />
+    </div>
 {% endblock content %}

@@ -2,8 +2,10 @@
 {% extends "posts/base.html" %}
 
 {% block content %}
-    <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="create" />
-    </form>
+    <div class="col-sm-6 col-sm-offset-3">
+        <form action="" method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="create" class="btn btn-default" />
+        </form>
+    </div>
 {% endblock content %}
