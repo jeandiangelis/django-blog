@@ -25,8 +25,6 @@ def post_create(request):
         messages.success(request, "Success!")
 
         return HttpResponseRedirect(post.get_absolute_url())
-    else:
-        messages.error(request, "Something went wrong!")
 
     context = {
         "form": form,
