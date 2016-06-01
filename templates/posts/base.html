@@ -5,17 +5,7 @@
     <title>{% block head_title %}Learn django! {% endblock head_title %}</title>
 </head>
 <body>
-    {% if messages %}
-         <div class="messages">
-            <ul class="messages">
-                {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-
+    {% include "posts/messages.html" %}
     <div class="container">
         {% block content %}
         {% endblock content %}
