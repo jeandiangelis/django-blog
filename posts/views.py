@@ -1,11 +1,9 @@
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from .forms import PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-# Create your views here.
 
 
 def post_detail(request, id=None):
@@ -19,7 +17,7 @@ def post_detail(request, id=None):
 
 
 def post_create(request):
-    form = PostForm(request.POST or None)
+    form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         post = form.save(commit=False)
         post.save()
@@ -35,7 +33,8 @@ def post_create(request):
 
 
 def post_list(request):
-    query_set_list = Post.objects.all().order_by("-timestamp")
+
+    query_set_list = Post.objects.all()
     paginator = Paginator(query_set_list, 3)
 
     page = request.GET.get('page')
@@ -58,7 +57,7 @@ def post_list(request):
 
 def post_update(request, id=None):
     post = get_object_or_404(Post, id=id)
-    form = PostForm(request.POST or None, instance=post)
+    form = PostForm(request.POST or None, request.FILES or None, instance=post)
 
     if form.is_valid():
         post = form.save(commit=False)
