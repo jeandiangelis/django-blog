@@ -21,7 +21,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('posts:detail', kwargs={"id": self.id})
+        return reverse('posts:detail', kwargs={"slug": self.slug})
 
     class Meta:
         ordering = ["-updated", "-timestamp"]
@@ -35,4 +35,4 @@ def pre_post_signal(sender, instance, *args, **kwargs):
         slug = "%s-%s" % (slug, instance.id)
     instance.slug = slug
 
-pre_save.connect(pre_post_signal(), sender=Post)
+pre_save.connect(pre_post_signal, sender=Post)

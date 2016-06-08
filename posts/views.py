@@ -6,8 +6,8 @@ from .forms import PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-def post_detail(request, id=None):
-    post = get_object_or_404(Post, id=id)
+def post_detail(request, slug=None):
+    post = get_object_or_404(Post, slug=slug)
     context = {
         "title": "detail",
         "post": post
