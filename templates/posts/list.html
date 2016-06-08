@@ -19,6 +19,7 @@
                     <img src="{{ post.image.url }}" alt="" class="img-responsive" />
                 {% endif %}
                 <p>{{ post.content|linebreaks|truncatechars:30 }}</p>
+                  Author: {{ post.user }}
                 <p><a href="{{ post.get_absolute_url }}" class="btn btn-primary" role="button">View</a>
               </div>
             </div>

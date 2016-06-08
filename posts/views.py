@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from .forms import PostForm
@@ -17,9 +17,16 @@ def post_detail(request, slug=None):
 
 
 def post_create(request):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
+
+    if not request.user.is_authenticated:
+        raise Http404
+
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         post = form.save(commit=False)
+        post.user = request.user
         post.save()
         messages.success(request, "Success!")
 
@@ -56,6 +63,9 @@ def post_list(request):
 
 
 def post_update(request, id=None):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
+
     post = get_object_or_404(Post, id=id)
     form = PostForm(request.POST or None, request.FILES or None, instance=post)
 
@@ -74,6 +84,9 @@ def post_update(request, id=None):
 
 
 def post_delete(request, id=None):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
+
     post = get_object_or_404(Post, id=id)
     post.delete()
     messages.success(request, "Deleted!")

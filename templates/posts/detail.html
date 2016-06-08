@@ -11,6 +11,7 @@
         </h1>
         <small>{{ post.timestamp }}</small>
         <br />
+        Author: {{ post.user}}
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="" class="img-responsive" />
         {% endif %}
